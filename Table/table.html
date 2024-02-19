@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table Doc</title>
+    <link rel="stylesheet" href="table.css" />
+  </head>
+  <body>
+    <div id="formFill">
+      <h1
+        style="
+          display: flex;
+          justify-content: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        "
+      >
+        Data Entry
+      </h1>
+      <div style="display: flex; margin-left: 10px">
+        <!-- <label for="">Sl.no: </label>
+        <input type="text" id="slno" /> -->
+        <div style="margin-left: 110px">
+          <label for="">Name</label>
+          <input type="text" id="name" />
+        </div>
+      </div>
+      <div style="display: flex; margin-left: 10px; margin-top: 35px">
+        <label for="">City : </label>
+        <input type="text" id="city" />
+        <div>
+          <div style="margin-left: 20px">
+            <label for="">State:</label>
+            <input type="text" id="state" />
+          </div>
+        </div>
+      </div>
+      <button
+        style="display: flex; margin-left: 40%; margin-top: 25px"
+        onclick="addRow()"
+        id="addBtn"
+      >
+        Add Entry
+      </button>
+
+      <table style="margin-top: 25px" id="dataTable">
+        <tr>
+          <th>Select</th>
+          <th>Sl.no</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="" id="check" /></td>
+          <td>1</td>
+          <td>Suresh</td>
+          <td>Bengaluru</td>
+          <td>Karnataka</td>
+        </tr>
+      </table>
+      <button
+        style="width: 65px; margin-left: 80%; margin-top: 25px"
+        onclick="deleteRow()"
+        id="delBtn"
+      >
+        Delete
+      </button>
+    </div>
+    <script>
+      function addRow() {
+        // var slno = document.getElementById("slno").value;
+        var name = document.getElementById("name").value;
+        var city = document.getElementById("city").value;
+        var state = document.getElementById("state").value;
+
+        var table = document.getElementById("dataTable");
+        // var row = table.insertRow(-1);
+        var rowCount = table.rows.length;
+
+        var row = table.insertRow(rowCount);
+
+        var checkBoxCell = row.insertCell(0);
+        var slnoCell = row.insertCell(1);
+        var nameCell = row.insertCell(2);
+        var cityCell = row.insertCell(3);
+        var stateCell = row.insertCell(4);
+
+        checkBoxCell.innerHTML = '<input type="checkbox">';
+        slnoCell.innerHTML = rowCount;
+        nameCell.innerHTML = name;
+        cityCell.innerHTML = city;
+        stateCell.innerHTML = state;
+        updateSerialNumbers();
+      }
+      function updateSerialNumbers() {
+        var table = document.getElementById("dataTable");
+        var rowCount = table.rows.length;
+
+        for (var i = 1; i < rowCount; i++) {
+          table.rows[i].cells[1].innerHTML = i;
+        }
+      }
+      const deleteRow = () => {
+        var table = document.getElementById("dataTable");
+        var rowCount = table.rows.length;
+
+        for (var i = rowCount - 1; i > 0; i--) {
+          var row = table.rows[i];
+          var checkBox = row.cells[0].getElementsByTagName("input")[0];
+
+          if (checkBox.checked) {
+            table.deleteRow(i);
+          }
+        }
+        updateSerialNumbers();
+      };
+    </script>
+  </body>
+</html>
